@@ -4,9 +4,9 @@ require_relative 'binary_tree'
 grid = DistanceGrid.new(5,5)
 BinaryTree.on(grid)
 
-start = grid[0, 0]
-distances = start.distances
+start_cell = grid[0, 0]
+distances_from_start = start_cell.distances
 
-grid.distances = distances
+grid.distances = distances_from_start
 
 puts grid
