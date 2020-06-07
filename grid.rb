@@ -74,7 +74,7 @@ class Grid
       row.each do |cell|
         cell = Cell.new(-1, -1) unless cell      
 
-        body = '   '
+        body = " #{contents_of(cell)} "
         east_boundary = (cell.linked?(cell.east) ? ' ' : '|')
         top << body << east_boundary
 
@@ -119,4 +119,9 @@ class Grid
   
     img
   end
+  
+  def contents_of(cell)
+    " "
+  end
+  
 end
