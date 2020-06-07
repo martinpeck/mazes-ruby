@@ -1,4 +1,4 @@
-require 'grid'
+require_relative 'grid'
 
 class BinaryTree
   def self.on(grid)

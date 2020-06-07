@@ -1,4 +1,5 @@
-require 'cell'
+require 'chunky_png'
+require_relative 'cell'
 
 class Grid
   attr_reader :rows, :columns
@@ -87,5 +88,35 @@ class Grid
     end
 
     output
+  end
+  
+  def to_png(cell_size: 10, wall_size: 1)
+    img_width  = cell_size * columns
+    img_height = cell_size * rows
+    
+    background_colour = ChunkyPNG::Color::WHITE
+    wall_colour       = ChunkyPNG::Color:darkred
+    grid_lines        = ChunkyPNG::Color:lightgrey
+    
+    img = ChunkyPNG::Image.new(img_width + 1, img_height + 1, background_colour)
+    
+    each_cell do |cell|
+      x1 = cell.column * cell_size
+      y1 = cell.row * cell_size
+      x2 = (cell.column + 1) * cell_size
+      y2 = (cell.row + 1) * cell_size
+      
+      img.rect(x1,y1,x2,y2, grid_lines)
+    
+      wall_adjustment = (wall_size > 1) ? wall_size - 1 : 1
+      img.rect(x1, y1, x2, y1 + wall_adjustment , wall_colour, wall_colour) unless cell.north
+      img.rect(x1, y1, x1 + wall_adjustment, y2, wall_colour, wall_colour) unless cell.west
+      
+      wall_adjustment = wall_size
+      img.rect(x1, y2, x2, y2 - wall_adjustment, wall_colour, wall_colour) unless cell.linked?(cell.south)
+      img.rect(x2, y1, x2 - wall_adjustment, y2, wall_colour, wall_colour) unless cell.linked?(cell.east)
+    end
+  
+    img
   end
 end
