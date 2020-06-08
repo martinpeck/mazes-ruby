@@ -100,28 +100,39 @@ class Grid
     
     img = ChunkyPNG::Image.new(img_width + 1, img_height + 1, background_colour)
     
-    each_cell do |cell|
-      x1 = cell.column * cell_size
-      y1 = cell.row * cell_size
-      x2 = (cell.column + 1) * cell_size
-      y2 = (cell.row + 1) * cell_size
-      
-      img.rect(x1,y1,x2,y2, grid_lines)
-    
-      wall_adjustment = (wall_size > 1) ? wall_size - 1 : 1
-      img.rect(x1, y1, x2, y1 + wall_adjustment , wall_colour, wall_colour) unless cell.north
-      img.rect(x1, y1, x1 + wall_adjustment, y2, wall_colour, wall_colour) unless cell.west
-      
-      wall_adjustment = wall_size
-      img.rect(x1, y2, x2, y2 - wall_adjustment, wall_colour, wall_colour) unless cell.linked?(cell.south)
-      img.rect(x2, y1, x2 - wall_adjustment, y2, wall_colour, wall_colour) unless cell.linked?(cell.east)
+    [:backgrounds, :walls].each do |mode|
+        
+        each_cell do |cell|
+            x1 = cell.column * cell_size
+            y1 = cell.row * cell_size
+            x2 = (cell.column + 1) * cell_size
+            y2 = (cell.row + 1) * cell_size
+            
+            
+            if mode == :backgrounds
+                back_colour = background_colour_for(cell)
+                img.rect(x1,y1,x2,y2, back_colour, back_colour) if back_colour
+            else
+                wall_adjustment = (wall_size > 1) ? wall_size - 1 : 1
+                img.rect(x1, y1, x2, y1 + wall_adjustment , wall_colour, wall_colour) unless cell.north
+                img.rect(x1, y1, x1 + wall_adjustment, y2, wall_colour, wall_colour) unless cell.west
+                
+                wall_adjustment = wall_size
+                img.rect(x1, y2, x2, y2 - wall_adjustment, wall_colour, wall_colour) unless cell.linked?(cell.south)
+                img.rect(x2, y1, x2 - wall_adjustment, y2, wall_colour, wall_colour) unless cell.linked?(cell.east)
+            end
+        end
     end
-  
+    
     img
   end
   
   def contents_of(cell)
     " "
+  end
+  
+  def background_colour_for(cell)
+      nil
   end
   
 end
