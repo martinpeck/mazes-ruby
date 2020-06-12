@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'chunky_png'
 require_relative 'cell'
 
@@ -72,7 +74,7 @@ class Grid
       bottom = '+'
 
       row.each do |cell|
-        cell = Cell.new(-1, -1) unless cell      
+        cell ||= Cell.new(-1, -1)
 
         body = " #{contents_of(cell)} "
         east_boundary = (cell.linked?(cell.east) ? ' ' : '|')
@@ -89,50 +91,57 @@ class Grid
 
     output
   end
-  
+
   def to_png(cell_size: 10, wall_size: 1)
     img_width  = cell_size * columns
     img_height = cell_size * rows
-    
+
     background_colour = ChunkyPNG::Color::WHITE
-    wall_colour       = ChunkyPNG::Color:darkred
-    grid_lines        = ChunkyPNG::Color:lightgrey
-    
+    wall_colour       = ChunkyPNG::Color :darkred
+    grid_lines        = ChunkyPNG::Color :lightgrey
+
     img = ChunkyPNG::Image.new(img_width + 1, img_height + 1, background_colour)
-    
-    [:backgrounds, :walls].each do |mode|
-        
-        each_cell do |cell|
-            x1 = cell.column * cell_size
-            y1 = cell.row * cell_size
-            x2 = (cell.column + 1) * cell_size
-            y2 = (cell.row + 1) * cell_size
-            
-            
-            if mode == :backgrounds
-                back_colour = background_colour_for(cell)
-                img.rect(x1,y1,x2,y2, back_colour, back_colour) if back_colour
-            else
-                wall_adjustment = (wall_size > 1) ? wall_size - 1 : 1
-                img.rect(x1, y1, x2, y1 + wall_adjustment , wall_colour, wall_colour) unless cell.north
-                img.rect(x1, y1, x1 + wall_adjustment, y2, wall_colour, wall_colour) unless cell.west
-                
-                wall_adjustment = wall_size
-                img.rect(x1, y2, x2, y2 - wall_adjustment, wall_colour, wall_colour) unless cell.linked?(cell.south)
-                img.rect(x2, y1, x2 - wall_adjustment, y2, wall_colour, wall_colour) unless cell.linked?(cell.east)
-            end
+
+    %i[backgrounds walls].each do |mode|
+      each_cell do |cell|
+        x1 = cell.column * cell_size
+        y1 = cell.row * cell_size
+        x2 = (cell.column + 1) * cell_size
+        y2 = (cell.row + 1) * cell_size
+
+        if mode == :backgrounds
+          back_colour = background_colour_for(cell)
+          img.rect(x1, y1, x2, y2, back_colour, back_colour) if back_colour
+        else
+          wall_adjustment = wall_size > 1 ? wall_size - 1 : 1
+          img.rect(x1, y1, x2, y1 + wall_adjustment, wall_colour, wall_colour) unless cell.north
+          img.rect(x1, y1, x1 + wall_adjustment, y2, wall_colour, wall_colour) unless cell.west
+
+          wall_adjustment = wall_size
+          img.rect(x1, y2, x2, y2 - wall_adjustment, wall_colour, wall_colour) unless cell.linked?(cell.south)
+          img.rect(x2, y1, x2 - wall_adjustment, y2, wall_colour, wall_colour) unless cell.linked?(cell.east)
         end
+      end
     end
-    
+
     img
   end
-  
-  def contents_of(cell)
-    " "
+
+  def contents_of(_cell)
+    ' '
   end
-  
-  def background_colour_for(cell)
-      nil
+
+  def background_colour_for(_cell)
+    nil
   end
-  
+
+  def deadends
+    list = []
+
+    each_cell do |cell|
+      list << cell if cell.links.count == 1
+    end
+
+    list
+  end
 end

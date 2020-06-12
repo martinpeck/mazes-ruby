@@ -1,0 +1,38 @@
+require_relative 'grid'
+require_relative 'binary_tree'
+require_relative 'sidewinder'
+require_relative 'aldous_broder'
+require_relative 'wilsons'
+require_relative 'hunt_and_kill'
+
+algorithms = [BinaryTree, Sidewinder, AldousBroder, Wilsons, HuntAndKill]
+
+tries = 100
+size = 20
+
+averages = {}
+algorithms.each do |algorithm|
+    puts "running #{algorithm}"
+    
+    deadends_counts = []
+    tries.times do
+        grid = Grid.new(size, size)
+        algorithm.on(grid)
+        deadends_counts << grid.deadends.count
+    end
+    
+    total_deadends = deadends_counts.inject(0) { |s, a| s + a }
+    averages[algorithm] = total_deadends / deadends_counts.length
+end
+
+total_cells = size * size
+puts
+puts "Average dead-ends per #{size}x#{size} maze (#{total_cells} cells):"
+puts
+
+sorted_algorithms = algorithms.sort_by { |algorithm| -averages[algorithm] }
+
+sorted_algorithms.each do |algorithm|
+    percentage = averages[algorithm] * 100.0 / (size * size)
+    puts "%14s : %3d/%d (%d%%)" % [algorithm, averages[algorithm], total_cells, percentage]
+end
