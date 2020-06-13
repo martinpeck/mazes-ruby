@@ -1,6 +1,6 @@
-require_relative 'grid'
+require_relative 'colour_grid'
 
-class MaskedGrid < Grid
+class MaskedGrid < ColourGrid
     attr_reader :mask
     
     def initialize(mask)
