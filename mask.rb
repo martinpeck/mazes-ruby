@@ -36,4 +36,25 @@ class Mask
             return [row, col] if @bits[row][col]
         end
     end
+    
+    def self.from_txt(file)
+        lines = File.readlines(file).map { |line| line.strip}
+        lines.pop while lines.last.length < 1
+        
+        rows = lines.length
+        columns = lines.first.length
+        mask = Mask.new(rows, columns)
+        
+        mask.rows.times do |row|
+            mask.columns.times do |col|
+                if lines[row][col] == "X"
+                    mask[row, col] = false
+                else
+                    mask[row, col] = true
+                end
+            end
+        end
+        
+        mask
+    end
 end
