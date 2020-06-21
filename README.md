@@ -6,26 +6,54 @@ This repository contains Ruby implementations of maze algorithms, copied or base
 
 ## Installing and Running Stuff
 
-Work it out yourself! My only tip here is that you should use VS Code, at which point the Dev Container that's defined in this repository will
-set you up with a Ruby development environment in which these scripts an be run.
+This is a personal project so work it out yourself! 
 
-Each of the algorithms has a demo script. So, assuming you have your Ruby environment set up you should be able to run...
+My top tip...
 
-... and this will generate two files in the `output` folder:
+**Use VS Code, and use the Dev Container that is defined in this repository**. If you do that you'll be set up with a fully functioning Ruby development environment without having to set it up manually! Want to know more...?
 
-1. a `.png` containing an image of the maze
-2. a `.txt` file containing an ASCII text represention of the maze
+<https://code.visualstudio.com/docs/remote/containers>
 
-## Example Output
+You will need to run `bundle install` the first time you open the project to install the gemfiles that are requried.
+
+I've created a number of Rake tasks to make it easy for me to run the demos. At the time of writing, these are the defined rake tasks...
 
 ``` bash
-ruby sidewinder_demo.rb
+rake algorithms:aldous_broder           # Algorithm demo: Aldous Broder
+rake algorithms:aldous_broder_coloured  # Algorithm demo: Aldous Broder, with colour
+rake algorithms:binary_tree             # Algorithm demo: Binary Tree
+rake algorithms:binary_tree_colour      # Algorithm demo: Binary Tree, with colour
+rake algorithms:hunt_and_kill           # Algorithm demo: Hunt and Kill
+rake algorithms:recursive_backtracker   # Algorithm demo: Recursize Backtracker
+rake algorithms:sidewinder              # Algorithm demo: Sidewinder
+rake algorithms:sidewinder_colour       # Algorithm demo: Sidewinder, with colour
+rake algorithms:wilsons                 # Algorithm demo: Wilsons
+rake default                            # Run most of the demos
+rake distances:dead_ends                # Counts the dead ends maze generated with a selection of algoritms
+rake distances:dikstra                  # Distances: Distra's algorithm
+rake distances:longest_path             # Shows the longest path in a maze
+rake masks:ascii_mask                   # Generates a maze using an ASCII mask
+rake masks:image_mask                   # Generates a maze using an image mask
+rake masks:simple_mask                  # Demonstrates a simple ASCII mask
 ```
 
-### Example Image Output
+The list the rake tasks run `rake -T -A` from the terminal. 
+
+Each of the algorithms has a demo script. Assuming you have your Ruby environment set up you should be able to run something like...
+
+```bash
+ruby demos/recursive_backtracker_demo.rb
+```
+
+... and this will either generate files in the `output` directory, or will write output directly to the terminal
+
+## Some Example Output
+
+
+### Sidewinder Image Maze
 ![](examples/sidewinder.png)
 
-### Example Text Output
+### Sizewinder ASCII Maze
 
 ``` text
 +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
@@ -61,4 +89,9 @@ ruby sidewinder_demo.rb
 +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
 
 ```
+### Recursive Backtracker Image Maze
+![](examples/recursive_backtracker.png)
+
+### Recursive Backtracker Maze with Image Mask
+![](examples/image_mask.png)
  
