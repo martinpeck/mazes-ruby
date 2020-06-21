@@ -1,6 +1,6 @@
-require_relative 'mask'
-require_relative 'masked_grid'
-require_relative 'recursive_backtracker'
+require_relative '../models/mask'
+require_relative '../models/masked_grid'
+require_relative '../algorithms/recursive_backtracker'
 
 abort "Please specify a text file to use as a template" if ARGV.empty?
 mask = Mask.from_txt(ARGV.first)

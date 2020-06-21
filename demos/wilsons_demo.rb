@@ -1,12 +1,12 @@
-require_relative 'colour_grid'
-require_relative 'binary_tree'
+require_relative '../models/colour_grid'
+require_relative '../algorithms/wilsons'
 
 grid = ColourGrid.new(25,25)
-BinaryTree.on(grid)
+Wilsons.on(grid)
 
 start = grid[grid.rows / 2, grid.columns / 2]
 
 grid.distances = start.distances
 
-filename = "output/colour_binary_tree_demo.png"
+filename = "output/wilsons_demo.png"
 grid.to_png.save(filename)

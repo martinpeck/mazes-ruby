@@ -1,5 +1,5 @@
-require_relative 'colour_grid'
-require_relative 'hunt_and_kill'
+require_relative '../models/colour_grid'
+require_relative '../algorithms/hunt_and_kill'
 
 grid = ColourGrid.new(25,25)
 HuntAndKill.on(grid)

@@ -1,5 +1,5 @@
-require_relative 'grid'
-require_relative 'sidewinder'
+require_relative '../models/grid'
+require_relative '../algorithms/sidewinder'
 
 my_grid = Grid.new(15, 15)
 Sidewinder.on(my_grid)

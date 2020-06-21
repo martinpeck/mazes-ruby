@@ -1,5 +1,5 @@
-require_relative 'grid'
-require_relative 'binary_tree'
+require_relative '../models/grid'
+require_relative '../algorithms/binary_tree'
 
 my_grid = Grid.new(15, 15)
 BinaryTree.on(my_grid)

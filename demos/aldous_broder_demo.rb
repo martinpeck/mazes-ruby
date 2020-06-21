@@ -1,5 +1,5 @@
-require_relative 'colour_grid'
-require_relative 'aldous_broder'
+require_relative '../models/colour_grid'
+require_relative '../algorithms/aldous_broder'
 
 grid = ColourGrid.new(25,25)
 AldousBroder.on(grid)

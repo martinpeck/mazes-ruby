@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class RecursiveBacktracker
   def self.on(grid, start_at: grid.random_cell)
     stack = []

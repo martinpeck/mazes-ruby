@@ -1,6 +1,6 @@
-require_relative 'mask'
-require_relative 'masked_grid'
-require_relative 'recursive_backtracker'
+require_relative '../models/mask'
+require_relative '../models/masked_grid'
+require_relative '../algorithms/recursive_backtracker'
 
 mask = Mask.new(5,5)
 

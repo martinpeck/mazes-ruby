@@ -1,10 +1,10 @@
-require_relative 'grid'
-require_relative 'binary_tree'
-require_relative 'sidewinder'
-require_relative 'aldous_broder'
-require_relative 'wilsons'
-require_relative 'hunt_and_kill'
-require_relative 'recursive_backtracker'
+require_relative '../models/grid'
+require_relative '../algorithms/binary_tree'
+require_relative '../algorithms/sidewinder'
+require_relative '../algorithms/aldous_broder'
+require_relative '../algorithms/wilsons'
+require_relative '../algorithms/hunt_and_kill'
+require_relative '../algorithms/recursive_backtracker'
 
 algorithms = [BinaryTree, Sidewinder, AldousBroder, Wilsons, HuntAndKill, RecursiveBacktracker]
 

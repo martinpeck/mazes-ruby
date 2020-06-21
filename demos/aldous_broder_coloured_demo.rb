@@ -1,5 +1,5 @@
-require_relative 'colour_grid'
-require_relative 'aldous_broder'
+require_relative '../models/colour_grid'
+require_relative '../algorithms/aldous_broder'
 
 6.times do |n|
     
