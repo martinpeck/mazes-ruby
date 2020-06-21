@@ -1,0 +1,105 @@
+# default task to run most of the demos
+desc "Run most of the demos"
+task default: %w[
+    algorithms:aldous_broder         
+    algorithms:aldous_broder_coloured
+    algorithms:binary_tree           
+    algorithms:binary_tree_colour    
+    algorithms:hunt_and_kill         
+    algorithms:recursive_backtracker 
+    algorithms:sidewinder            
+    algorithms:sidewinder_colour     
+    algorithms:wilsons
+    masks:image_mask
+    masks:ascii_mask               
+]
+
+# Mask demos
+namespace :masks do   
+    desc "Generates a maze using an image mask"
+    task :image_mask do
+        ruby "demos/image_mask_demo.rb masks/mask1.png"
+    end
+    
+    desc "Generates a maze using an ASCII mask"
+    task :ascii_mask do
+        ruby "demos/ascii_mask_demo.rb masks/mask1.txt"
+    end
+    
+    desc "Demonstrates a simple ASCII mask"
+    task :simple_mask do
+        ruby "demos/simple_mask_demo.rb"
+    end
+end
+
+# Algorithm demos
+
+namespace :algorithms do
+    desc "Algorithm demo: Binary Tree"
+    task :binary_tree do 
+        ruby "demos/binary_tree_demo.rb"
+    end
+
+    desc "Algorithm demo: Binary Tree, with colour"
+    task :binary_tree_colour do 
+        ruby "demos/binary_tree_colour_demo.rb"
+    end
+
+    desc "Algorithm demo: Sidewinder"
+    task :sidewinder do 
+        ruby "demos/sidewinder_demo.rb"
+    end
+
+    desc "Algorithm demo: Sidewinder, with colour"
+    task :sidewinder_colour do 
+        ruby "demos/sidewinder_colour_demo.rb"
+    end
+
+    desc "Algorithm demo: Recursize Backtracker"
+    task :recursive_backtracker do 
+        ruby "demos/recursive_backtracker_demo.rb"
+    end
+
+    desc "Algorithm demo: Aldous Broder, with colour"
+    task :aldous_broder_coloured do 
+        ruby "demos/aldous_broder_coloured_demo.rb"
+    end
+
+    desc "Algorithm demo: Aldous Broder"
+    task :aldous_broder do 
+        ruby "demos/aldous_broder_demo.rb"
+    end
+
+    desc "Algorithm demo: Wilsons"
+    task :wilsons do 
+        ruby "demos/wilsons_demo.rb"
+    end
+
+
+    desc "Algorithm demo: Hunt and Kill"
+    task :hunt_and_kill do 
+        ruby "demos/hunt_and_kill_demo.rb"
+    end
+
+end
+
+# distances demos
+
+namespace :distances do
+
+    desc "Shows the longest path in a maze"
+    task :longest_path do
+        ruby "demos/longest.path_demo.rb"
+    end
+
+    desc "Counts the dead ends maze generated with a selection of algoritms"
+    task :dead_ends do
+        ruby "demos/deadend_counts.rb"
+    end
+
+    desc "Distances: Distra's algorithm"
+    task :dikstra do 
+        ruby "demos/dikstra_demo.rb"
+    end
+end
+
