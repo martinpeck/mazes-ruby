@@ -9,6 +9,7 @@ class ColourGrid < Grid
     end
 
     def background_colour_for(cell)
+        return nil if not @distances
         distance =  @distances[cell] or return nil
         intensity = (@maximum - distance).to_f / @maximum
         dark = (255 * intensity).round
