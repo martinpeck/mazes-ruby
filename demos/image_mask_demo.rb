@@ -7,8 +7,8 @@ mask = Mask.from_png(ARGV.first)
 grid = MaskedGrid.new(mask)
 RecursiveBacktracker.on(grid)
 
-start = grid[99, 0]
-grid.distances = start.distances
+#start = grid[99, 0]
+#grid.distances = start.distances
 
 filename = "output/image_mask.png"
 grid.to_png(cell_size:5).save(filename)
