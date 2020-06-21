@@ -8,5 +8,5 @@ start = grid[grid.rows / 2, grid.columns / 2]
 
 grid.distances = start.distances
 
-filename = "output/recursive_backtracker_demo.png"
+filename = "output/recursive_backtracker.png"
 grid.to_png.save(filename)
