@@ -1,5 +1,15 @@
 {
-  "ruby.intellisense": "rubyLocate",
-  "ruby.format": "rubocop",
-  "ruby.codeCompletion": "rcodetools"
+    "ruby.intellisense": "rubyLocate",
+    "ruby.format": "rubocop",
+    "ruby.useLanguageServer": true,
+    "ruby.codeCompletion": "rcodetools",
+    "ruby.useBundler": true,
+    "ruby.lint": {
+        "rubocop": {
+            "useBundler": true
+        },
+        "reek": {
+            "useBundler": true
+        },
+    }
 }
