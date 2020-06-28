@@ -103,3 +103,13 @@ namespace :distances do
     end
 end
 
+# polar grid demos
+
+namespace :polar do
+    
+    desc "Polar Grid Test"
+    task :test do
+        ruby "demos/polar_grid_test.rb"
+    end
+end
+
