@@ -6,7 +6,8 @@
     "ruby.useBundler": true,
     "ruby.lint": {
         "rubocop": {
-            "useBundler": true
+            "useBundler": true,
+            "except": ["Metrics"]
         },
         "reek": {
             "useBundler": true

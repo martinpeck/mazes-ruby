@@ -3,6 +3,7 @@
 require 'chunky_png'
 require_relative 'cell'
 
+# Base class for all maze grids
 class Grid
   attr_reader :rows, :columns
 
@@ -98,7 +99,6 @@ class Grid
 
     background_colour = ChunkyPNG::Color::WHITE
     wall_colour       = ChunkyPNG::Color :darkred
-    grid_lines        = ChunkyPNG::Color :lightgrey
 
     img = ChunkyPNG::Image.new(img_width + 1, img_height + 1, background_colour)
 

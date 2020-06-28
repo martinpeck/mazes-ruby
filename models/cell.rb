@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 require_relative 'distances'
 
+# Base class for maze cells
 class Cell
   attr_reader :row, :column
   attr_accessor :north, :south, :east, :west
@@ -38,26 +41,26 @@ class Cell
     list << west if west
     list
   end
-  
+
   def distances
     distances = Distances.new(self)
-    frontier = [ self ]
-    
+    frontier = [self]
+
     while frontier.any?
       new_frontier = []
-      
+
       frontier.each do |cell|
         cell.links.each do |linked|
           next if distances[linked]
+
           distances[linked] = distances[cell] + 1
           new_frontier << linked
         end
       end
-      
+
       frontier = new_frontier
     end
-    
+
     distances
   end
-  
 end

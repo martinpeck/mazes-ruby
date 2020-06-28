@@ -5,6 +5,7 @@ require_relative 'polar_cell'
 
 require 'chunky_png'
 
+# PolarGrid represents a circular maze (a "theta")
 class PolarGrid < Grid
   def initialize(rows)
     super(rows, 1)
@@ -30,9 +31,10 @@ class PolarGrid < Grid
 
     rows
   end
-  
+
   def[](row, column)
     return nil unless row.between?(0, @rows - 1)
+
     @grid[row][column % @grid[row].count]
   end
 
@@ -40,7 +42,7 @@ class PolarGrid < Grid
     each_cell do |cell|
       row = cell.row
       col = cell.column
-      next unless row > 0
+      next unless row.positive?
 
       cell.cw  = self[row, col + 1]
       cell.ccw = self[row, col - 1]
@@ -68,7 +70,7 @@ class PolarGrid < Grid
     centre = img_size / 2
 
     each_cell do |cell|
-      next if cell.row == 0
+      next if cell.row.zero?
 
       theta           = 2 * Math::PI / @grid[cell.row].length
       inner_radius    = cell.row * cell_size
@@ -78,8 +80,6 @@ class PolarGrid < Grid
 
       ax = centre + (inner_radius * Math.cos(theta_ccw)).to_i
       ay = centre + (inner_radius * Math.sin(theta_ccw)).to_i
-      bx = centre + (outer_radius * Math.cos(theta_ccw)).to_i
-      by = centre + (outer_radius * Math.sin(theta_ccw)).to_i
       cx = centre + (inner_radius * Math.cos(theta_cw)).to_i
       cy = centre + (inner_radius * Math.sin(theta_cw)).to_i
       dx = centre + (outer_radius * Math.cos(theta_cw)).to_i
