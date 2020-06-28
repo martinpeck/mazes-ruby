@@ -1,7 +1,9 @@
 # Notes
 
 ## Docs and Links
-ChunkyPNG: <https://www.rubydoc.info/gems/chunky_png/ChunkyPNG>
+ChunkyPNG:
+- Top level docs <https://www.rubydoc.info/gems/chunky_png/ChunkyPNG>
+- Colours <https://rdoc.info/gems/chunky_png/1.2.0/ChunkyPNG/Color>
 
 ## Bash Notes
 ``` bash
