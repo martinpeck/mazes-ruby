@@ -60,6 +60,14 @@ class PolarGrid < Grid
     @grid[row][col]
   end
 
+  def background_colour_for(cell)
+    intensity = (@rows - cell.row).to_f / @rows
+    dark = (255 * intensity).round
+    bright = 128 + (127 * intensity).round
+
+    ChunkyPNG::Color.rgb(dark, bright, dark)
+  end
+
   def to_png(cell_size: 10)
     img_size = 2 * @rows * cell_size
 
@@ -69,24 +77,44 @@ class PolarGrid < Grid
     img = ChunkyPNG::Image.new(img_size + 1, img_size + 1, background)
     centre = img_size / 2
 
-    each_cell do |cell|
-      next if cell.row.zero?
+    %i[backgrounds walls].each do |mode|
+      each_cell do |cell|
+        next if cell.row.zero?
 
-      theta           = 2 * Math::PI / @grid[cell.row].length
-      inner_radius    = cell.row * cell_size
-      outer_radius    = (cell.row + 1) * cell_size
-      theta_ccw       = cell.column * theta
-      theta_cw = (cell.column + 1) * theta
+        theta           = 2 * Math::PI / @grid[cell.row].length
+        inner_radius    = cell.row * cell_size
+        outer_radius    = (cell.row + 1) * cell_size
+        theta_ccw       = cell.column * theta
+        theta_cw        = (cell.column + 1) * theta
+        theta_mid       = theta_ccw + (theta / 2)
 
-      ax = centre + (inner_radius * Math.cos(theta_ccw)).to_i
-      ay = centre + (inner_radius * Math.sin(theta_ccw)).to_i
-      cx = centre + (inner_radius * Math.cos(theta_cw)).to_i
-      cy = centre + (inner_radius * Math.sin(theta_cw)).to_i
-      dx = centre + (outer_radius * Math.cos(theta_cw)).to_i
-      dy = centre + (outer_radius * Math.sin(theta_cw)).to_i
+        ax = centre + (inner_radius * Math.cos(theta_ccw)).to_i
+        ay = centre + (inner_radius * Math.sin(theta_ccw)).to_i
 
-      img.line(ax, ay, cx, cy, wall) unless cell.linked?(cell.inward)
-      img.line(cx, cy, dx, dy, wall) unless cell.linked?(cell.cw)
+        bx = centre + (outer_radius * Math.cos(theta_ccw)).to_i
+        by = centre + (outer_radius * Math.sin(theta_ccw)).to_i
+
+        cx = centre + (inner_radius * Math.cos(theta_cw)).to_i
+        cy = centre + (inner_radius * Math.sin(theta_cw)).to_i
+
+        dx = centre + (outer_radius * Math.cos(theta_cw)).to_i
+        dy = centre + (outer_radius * Math.sin(theta_cw)).to_i
+
+        bdx = centre + (outer_radius * Math.cos(theta_mid)).to_i
+        bdy = centre + (outer_radius * Math.sin(theta_mid)).to_i
+
+        cax = centre + (inner_radius * Math.cos(theta_mid)).to_i
+        cay = centre + (inner_radius * Math.sin(theta_mid)).to_i
+
+        if mode == :backgrounds
+          back_colour = background_colour_for(cell)
+          path = ChunkyPNG::Vector.new([ax, ay, bx, by, bdx, bdy, dx, dy, cx, cy, cax, cay])
+          img.polygon(path, back_colour, back_colour) if back_colour
+        else
+          img.line(ax, ay, cx, cy, wall) unless cell.linked?(cell.inward)
+          img.line(cx, cy, dx, dy, wall) unless cell.linked?(cell.cw)
+        end
+      end
     end
 
     img.circle(centre, centre, @rows * cell_size, wall)
