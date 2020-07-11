@@ -1,16 +1,32 @@
 # frozen_string_literal: true
 
-require_relative 'grid'
+require_relative 'colour_grid'
 require_relative 'polar_cell'
 
 require 'chunky_png'
 
 # PolarGrid represents a circular maze (a "theta")
-class PolarGrid < Grid
+class PolarGrid < ColourGrid
   def initialize(rows)
     super(rows, 1)
   end
 
+  def distances=(distances)
+    @distances = distances
+    _, @maximum = distances.max
+  end
+
+  def background_colour_for(cell)
+    if @distances
+      super
+    else
+      intensity = (@rows - cell.row).to_f / @rows
+      dark = (255 * intensity).round
+      bright = 128 + (127 * intensity).round
+      ChunkyPNG::Color.rgb(dark, bright, dark)
+    end
+  end
+  
   def prepare_grid
     rows = Array.new(@rows)
 
@@ -58,14 +74,6 @@ class PolarGrid < Grid
     row = rand(@rows)
     col = rand(@grid[row].length)
     @grid[row][col]
-  end
-
-  def background_colour_for(cell)
-    intensity = (@rows - cell.row).to_f / @rows
-    dark = (255 * intensity).round
-    bright = 128 + (127 * intensity).round
-
-    ChunkyPNG::Color.rgb(dark, bright, dark)
   end
 
   def to_png(cell_size: 10)
