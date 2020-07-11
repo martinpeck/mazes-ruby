@@ -50,9 +50,8 @@ ruby demos/recursive_backtracker_demo.rb
 
 ## Some Example Output
 
-### A Coloured Polor Grid 
+### A Coloured Polar Grid 
 In this example, colour is used to show the distance from the centre cell.
-
 
 ![](examples/polar_grid.png)
 
