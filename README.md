@@ -35,6 +35,7 @@ rake distances:longest_path             # Shows the longest path in a maze
 rake masks:ascii_mask                   # Generates a maze using an ASCII mask
 rake masks:image_mask                   # Generates a maze using an image mask
 rake masks:simple_mask                  # Demonstrates a simple ASCII mask
+rake polar:test                         # Polar Grid Test
 ```
 
 The list the rake tasks run `rake -T -A` from the terminal. 
@@ -49,11 +50,20 @@ ruby demos/recursive_backtracker_demo.rb
 
 ## Some Example Output
 
+### A Coloured Polor Grid 
+In this example, colour is used to show the distance from the centre cell.
+
+
+![](examples/polar_grid.png)
 
 ### Sidewinder Image Maze
+This maze was generated using the sidewinder algorithm.
+
 ![](examples/sidewinder.png)
 
 ### Sizewinder ASCII Maze
+This is an ASCII representation of the above maze.
+
 
 ``` text
 +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
@@ -90,8 +100,12 @@ ruby demos/recursive_backtracker_demo.rb
 
 ```
 ### Recursive Backtracker Image Maze
+Again, colour represents distance from the central cell.
+
 ![](examples/recursive_backtracker.png)
 
 ### Recursive Backtracker Maze with Image Mask
+A bitmap mask has been used to constrain this maze.
+
 ![](examples/image_mask.png)
  
