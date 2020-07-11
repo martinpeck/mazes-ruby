@@ -50,16 +50,20 @@ ruby demos/recursive_backtracker_demo.rb
 
 ## Some Example Output
 
-### A Coloured Polar Grid 
+### A Coloured Theta (Polar Grid, or Circular Maze)
 In this example, colour is used to show the distance from the centre cell.
 
 ![](examples/polar_grid.png)
 
-### A Coloured Hex Grid 
+### A Coloured Sigma (Maze with Hexagonal Cells)
 In this example, colour is used to show the distance from the top left hex cell.
 
 ![](examples/hex.png)
 
+### A Coloured Delta (Maze with Triangular Cells)
+In this example, colour is used to show the distance from the central cell.
+
+![](examples/delta.png)
 
 ### Sidewinder Image Maze
 This maze was generated using the sidewinder algorithm.
