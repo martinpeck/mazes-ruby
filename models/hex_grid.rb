@@ -69,14 +69,14 @@ class HexGrid < ColourGrid
           if colour
             points = [
               [x_fw, y_m],
-              [x-nw, y_n],
+              [x_nw, y_n],
               [x_ne, y_n],
               [x_fe, y_m],
               [x_ne, y_s],
               [x_nw, y_s],
             ]
             img.polygon(points, colour, colour)
-          end          
+          end
         else
           img.line(x_fw, y_m, x_nw, y_s, wall) unless cell.southwest
           img.line(x_fw, y_m, x_nw, y_n, wall) unless cell.northwest
