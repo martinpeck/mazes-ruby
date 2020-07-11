@@ -55,6 +55,12 @@ In this example, colour is used to show the distance from the centre cell.
 
 ![](examples/polar_grid.png)
 
+### A Coloured Hex Grid 
+In this example, colour is used to show the distance from the top left hex cell.
+
+![](examples/hex.png)
+
+
 ### Sidewinder Image Maze
 This maze was generated using the sidewinder algorithm.
 
