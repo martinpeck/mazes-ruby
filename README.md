@@ -35,7 +35,9 @@ rake distances:longest_path             # Shows the longest path in a maze
 rake masks:ascii_mask                   # Generates a maze using an ASCII mask
 rake masks:image_mask                   # Generates a maze using an image mask
 rake masks:simple_mask                  # Demonstrates a simple ASCII mask
-rake polar:test                         # Polar Grid Test
+rake shapes:hex                         # Hex Grid
+rake shapes:polar                       # Polar Grid
+rake shapes:triangle                    # Triangle Grid
 ```
 
 The list the rake tasks run `rake -T -A` from the terminal. 
