@@ -38,6 +38,8 @@ rake masks:simple_mask                  # Demonstrates a simple ASCII mask
 rake shapes:hex                         # Hex Grid
 rake shapes:polar                       # Polar Grid
 rake shapes:triangle                    # Triangle Grid
+rake advanced:braid                     # Braided Grid
+rake advanced:weighted                  # Weighted Maze
 ```
 
 The list the rake tasks run `rake -T -A` from the terminal. 
@@ -66,6 +68,17 @@ In this example, colour is used to show the distance from the top left hex cell.
 In this example, colour is used to show the distance from the central cell.
 
 ![](examples/delta.png)
+
+### Braided Mazes
+Braids are mazes that include loops. This particular braided maze was created using the recursize backtracker algorithm, and then 50% of the deadends were opened up to create the loops.
+
+![](examples/braided_recursive_backtracker.png)
+
+
+### A Weighted Maze
+In this example you can see the shortest path from top right to bottom left, and then the impact of placing lava within that path. The lava cell becomes more costly (through weights) is represented by the red cell.
+
+![](examples/maze_with_lava.png)
 
 ### Sidewinder Image Maze
 This maze was generated using the sidewinder algorithm.
