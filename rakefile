@@ -120,3 +120,15 @@ namespace :shapes do
     ruby 'demos/triangle_demo.rb'
   end
 end
+
+namespace :advanced do
+  desc 'Braided Grid'
+  task :braid do
+    ruby 'demos/braided_recursive_backtracker.rb'
+  end
+
+  desc 'Weighted Maze'
+  task :weighted do
+    ruby 'demos/weighted_maze.rb'
+  end
+end
