@@ -40,6 +40,7 @@ rake shapes:polar                       # Polar Grid
 rake shapes:triangle                    # Triangle Grid
 rake advanced:braid                     # Braided Grid
 rake advanced:weighted                  # Weighted Maze
+rake advanced:weave                     # Weave Maze
 ```
 
 The list the rake tasks run `rake -T -A` from the terminal. 

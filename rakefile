@@ -131,4 +131,10 @@ namespace :advanced do
   task :weighted do
     ruby 'demos/weighted_maze.rb'
   end
+  
+  desc 'Weave Maze'
+  task :weave do
+    ruby 'demos/weave_maze.rb'
+  end
+
 end
