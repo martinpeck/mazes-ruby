@@ -93,9 +93,10 @@ class Grid
     output
   end
 
-  def to_png(cell_size: 10, wall_size: 1)
+  def to_png(cell_size: 10, inset: 0)
     img_width  = cell_size * columns
     img_height = cell_size * rows
+    inset = (cell_size * inset).to_i
 
     background_colour = ChunkyPNG::Color::WHITE
     wall_colour       = ChunkyPNG::Color :darkred
@@ -104,27 +105,85 @@ class Grid
 
     %i[backgrounds walls].each do |mode|
       each_cell do |cell|
-        x1 = cell.column * cell_size
-        y1 = cell.row * cell_size
-        x2 = (cell.column + 1) * cell_size
-        y2 = (cell.row + 1) * cell_size
+        x = cell.column * cell_size
+        y = cell.row * cell_size
 
-        if mode == :backgrounds
-          back_colour = background_colour_for(cell)
-          img.rect(x1, y1, x2, y2, back_colour, back_colour) if back_colour
+        if inset > 0
+          to_png_with_inset(img, cell, mode, cell_size, wall_colour, x, y, inset)
         else
-          wall_adjustment = wall_size > 1 ? wall_size - 1 : 1
-          img.rect(x1, y1, x2, y1 + wall_adjustment, wall_colour, wall_colour) unless cell.north
-          img.rect(x1, y1, x1 + wall_adjustment, y2, wall_colour, wall_colour) unless cell.west
-
-          wall_adjustment = wall_size
-          img.rect(x1, y2, x2, y2 - wall_adjustment, wall_colour, wall_colour) unless cell.linked?(cell.south)
-          img.rect(x2, y1, x2 - wall_adjustment, y2, wall_colour, wall_colour) unless cell.linked?(cell.east)
+          to_png_without_inset(img, cell, mode, cell_size, wall_colour, x, y)
         end
       end
     end
 
     img
+  end
+
+  def to_png_without_inset(img, cell, mode, cell_size, wall_colour, x, y)
+    x1 = x
+    y1 = y
+    x2 = x1 + cell_size
+    y2 = y1 + cell_size
+
+    if mode == :backgrounds
+      back_colour = background_colour_for(cell)
+      img.rect(x, y, x2, y2, back_colour, back_colour) if back_colour
+    else
+      img.line(x1, y1, x2, y1, wall_colour) unless cell.north
+      img.line(x1, y1, x1, y2, wall_colour) unless cell.west
+      img.line(x1, y2, x2, y2, wall_colour) unless cell.linked?(cell.south)
+      img.line(x2, y1, x2, y2, wall_colour) unless cell.linked?(cell.east)
+    end
+  end
+
+  def to_png_with_inset(img, cell, mode, cell_size, wall_colour, x, y, inset)
+    x1, x2, x3, x4, y1, y2, y3, y4 = cell_coordinates_with_inset(x, y, cell_size, inset)
+
+    # TODO: add support for backgrounds
+    if mode == :walls
+      if cell.linked?(cell.north)
+        img.line(x2, y1, x2, y2, wall_colour)
+        img.line(x3, y1, x3, y2, wall_colour)
+      else
+        img.line(x2, y2, x3, y2, wall_colour)
+      end
+
+      if cell.linked?(cell.south)
+        img.line(x2, y3, x2, y4, wall_colour)
+        img.line(x3, y3, x3, y4, wall_colour)
+      else
+        img.line(x2, y3, x3, y3, wall_colour)
+      end
+
+      if cell.linked?(cell.west)
+        img.line(x1, y2, x2, y2, wall_colour)
+        img.line(x1, y3, x2, y3, wall_colour)
+      else
+        img.line(x2, y2, x2, y3, wall_colour)
+      end
+
+      if cell.linked?(cell.east)
+        img.line(x3, y2, x4, y2, wall_colour)
+        img.line(x3, y3, x4, y3, wall_colour)
+      else
+        img.line(x3, y2, x3, y3, wall_colour)
+      end
+    end
+  end
+
+  def cell_coordinates_with_inset(x, y, cell_size, inset)
+    x1 = x
+    x4 = x + cell_size
+    x2 = x1 + inset
+    x3 = x4 - inset
+
+    y1 = y
+    y4 = y + cell_size
+    y2 = y1 + inset
+    y3 = y4 - inset
+
+    [x1, x2, x3, x4,
+     y1, y2, y3, y4]
   end
 
   def contents_of(_cell)
@@ -156,6 +215,5 @@ class Grid
       neighbour = best.sample
       cell.link(neighbour)
     end
-
   end
 end
