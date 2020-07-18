@@ -1,7 +1,7 @@
 require_relative '../models/colour_grid'
 require_relative '../algorithms/recursive_backtracker'
 
-grid = ColourGrid.new(50,50)
+grid = ColourGrid.new(25,25)
 RecursiveBacktracker.on(grid)
 grid.braid(0.5)
 
