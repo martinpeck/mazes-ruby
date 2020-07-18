@@ -75,6 +75,10 @@ Braids are mazes that include loops. This particular braided maze was created us
 
 ![](examples/braided_recursive_backtracker.png)
 
+### Weave Mazes
+Weave mazes allow for passageways to cross over each other. 
+
+![](examples/weave_maze.png)
 
 ### A Weighted Maze
 In this example you can see the shortest path from top right to bottom left, and then the impact of placing lava within that path. The lava cell becomes more costly (through weights) is represented by the red cell.
