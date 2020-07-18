@@ -81,6 +81,12 @@ namespace :algorithms do
   task :hunt_and_kill do
     ruby 'demos/hunt_and_kill_demo.rb'
   end
+
+  desc 'Algorithm demo: Kruskal'
+  task :kruskal do
+    ruby 'demos/kruskal_demo.rb'
+  end
+
 end
 
 # distances demos

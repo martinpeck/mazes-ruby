@@ -24,6 +24,7 @@ rake algorithms:aldous_broder_coloured  # Algorithm demo: Aldous Broder, with co
 rake algorithms:binary_tree             # Algorithm demo: Binary Tree
 rake algorithms:binary_tree_colour      # Algorithm demo: Binary Tree, with colour
 rake algorithms:hunt_and_kill           # Algorithm demo: Hunt and Kill
+rake algorithms:kruskal                 # Algorithm demo: Kruskal
 rake algorithms:recursive_backtracker   # Algorithm demo: Recursize Backtracker
 rake algorithms:sidewinder              # Algorithm demo: Sidewinder
 rake algorithms:sidewinder_colour       # Algorithm demo: Sidewinder, with colour
