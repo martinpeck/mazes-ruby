@@ -10,7 +10,7 @@ GEM
     rake (13.0.1)
     rcodetools (0.8.5.0)
     regexp_parser (1.7.1)
-    rexml (3.3.3)
+    rexml (3.3.6)
       strscan
     rubocop (0.86.0)
       parallel (~> 1.10)
